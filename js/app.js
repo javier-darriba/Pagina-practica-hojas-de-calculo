@@ -81,4 +81,5 @@ $('bpan').onclick=async()=>{if(!$('panel').hidden){show('app');return}
  (a.data||[]).forEach(p=>{const m=by[p.id]||{};let n=0,at=0;
   const cells=ENTRADAS.map((en,e)=>{let c=0;en.ejercicios.forEach((_,x)=>{const r=m[pid(e,x)];if(r){at+=r.attempts;if(r.done)c++}});n+=c;return `<td>${nEx(e)?c+'/'+nEx(e):'–'}</td>`}).join('');
   h+=`<tr><td>${esc(p.full_name||p.email)}</td>${cells}<td>${n}/${tot}</td><td>${at}</td></tr>`});
+  $('panel').innerHTML=h+'</table></div><p class="note">E1…E10 = entradas (ejercicios completados / total). Pasa el ratón por la cabecera para ver el título.</p>'};
 init();
