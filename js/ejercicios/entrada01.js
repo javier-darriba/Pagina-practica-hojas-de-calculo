@@ -23,7 +23,7 @@
  s:'La pregunta pide los ingresos totales de febrero, que están en la columna C. Así que la fórmula <code>=SUMA(C2:C6)</code> te daría la suma de los ingresos en las celdas del rango C2:C6.'},
 {d:'El director financiero te dice que los ingresos de febrero se reportaron mal y que hay que aumentar el total en $100. Escribe <code>=SUMA(C2:C6; 100)</code>',
  rows:[['','Enero','Febrero'],['Ingresos producto a',100,200],['Ingresos producto b',150,350],['Ingresos producto c',250,150],['Ingresos servicio',200,100],['Ingresos consultoría',50,200],['Total','','']],
- g:{C7:[1100,/SUM/]}h:'Vuelve a leer el enunciado, la solución está escrita en él.',
+ g:{C7:[1100,/SUM/]},h:'Vuelve a leer el enunciado, la solución está escrita en él.',
  s:'Recuerda que la función SUMA suma todo lo que está dentro de los paréntesis y separado por comas. Así que la fórmula <code>=SUMA(C2:C6; 100)</code> sumaría 100 a la suma del rango de celdas C2:C6.'},
 {d:'Usa la función SUMA con el argumento <code>B7:G7</code> para calcular los ingresos totales de enero a junio.',
  rows:[['','Enero','Febrero','Marzo','Abril','Mayo','Junio'],['Ingresos producto a',100,200,100,300,200,200],['Ingresos producto b',150,350,150,200,350,300],['Ingresos producto c',250,150,50,200,250,100],['Ingresos servicio',200,100,150,150,200,300],['Ingresos consultoría',50,200,150,100,250,350],['Total',750,100,600,950,1250,1250]],
