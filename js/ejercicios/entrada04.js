@@ -1,5 +1,5 @@
 /* Entrada 4: SI */
-(window.ENTRADAS=window.ENTRADAS||[])[4]={titulo:'SI',ejercicios:[
+(window.ENTRADAS=window.ENTRADAS||[])[3]={titulo:'SI',ejercicios:[
 {d:'La función <b>SI</b> sirve para tomar decisiones: si algo se cumple devuelve un resultado y, si no, devuelve otro. Se escribe <code>=SI(condición; valor si es verdad; valor si es falso)</code>. Los textos van entre comillas. Ana ha sacado un 7: escribe en la celda amarilla <code>=SI(B2>=5; "Aprobado"; "Suspenso")</code>. El signo <code>&gt;=</code> significa «mayor o igual que».',
  rows:[['Alumno','Nota','Resultado'],['Ana',7,'']],g:{C2:['Aprobado',/SI\(|IF\(/]},
  h:'Copia la fórmula del enunciado con mucho cuidado: empieza por <code>=SI(</code>, los textos van entre comillas dobles, los tres argumentos se separan con <code>;</code> y al final se cierra el paréntesis. Debe aparecer Aprobado.',
