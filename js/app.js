@@ -18,7 +18,10 @@ function refresh(){cache={};document.querySelectorAll('#grid input').forEach(i=>
  if(i!==document.activeElement)i.value=raw[ref]===undefined?'':fmt(v)})}
 function build(){let h='<table><tr><th></th>'+COLS.map(c=>`<th>${c}</th>`).join('')+'</tr>';
  for(let r=1;r<=ROWS;r++){h+=`<tr><th>${r}</th>`;for(const c of COLS){const ref=c+r,l=locked.has(ref);h+=`<td><input data-r="${ref}" class="${ref in G?'goal':l?'lock':''}" ${l?'readonly':''} autocomplete="off" spellcheck="false"></td>`}h+='</tr>'}
- $('grid').innerHTML=h+'</table>';refresh()}
+$('grid').innerHTML=h+'</table>';
+ COLS.forEach(c=>{let m=6;for(const ref in raw)if(ref[0]===c)m=Math.max(m,String(raw[ref]).length);
+  document.querySelectorAll('#grid input[data-r^="'+c+'"]').forEach(i=>i.style.minWidth=(m+4)+'ch')});
+ refresh()}
 
 function lst(){$('list').innerHTML='';
  ENTRADAS.forEach((en,e)=>{const b=document.createElement('button');b.className=e===E?'on':'';b.innerHTML=`${e+1}. ${esc(en.titulo)} <small>${nDone(e)}/${nEx(e)}</small>`;b.onclick=()=>openEntrada(e);$('list').appendChild(b)});
