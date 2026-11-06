@@ -1,7 +1,7 @@
 /* Entrada 8 (opcional): repaso general. En s van MÁS PISTAS, no la solución. */
 (()=>{
 const N=[['Alumno','Mates','Lengua','Inglés'],['Ana',7,9,8],['Luis',5,6,4],['Marta',10,8,9],['Pablo',4,7,6],['Sara',8,3,'']];
-(window.ENTRADAS=window.ENTRADAS||[])[8]={titulo:'Repaso general (opcional)',opcional:true,ejercicios:[
+(window.ENTRADAS=window.ENTRADAS||[])[7]={titulo:'Repaso general (opcional)',opcional:true,ejercicios:[
 {d:'Repaso de todo lo visto. Esta tabla tiene las notas de cinco alumnos en tres asignaturas (a Sara le falta la nota de Inglés). Empieza por lo básico: calcula la suma de las tres notas de Ana.',
  rows:N,g:{B7:[24,/SUMA\(|SUM\(/]},h:'Es una suma de un rango horizontal: las tres notas de la fila de Ana. Debe dar 24.',s:'El rango empieza en la nota de Mates de Ana y acaba en su nota de Inglés, todo en la misma fila.'},
 {d:'Calcula la nota media de Mates de toda la clase.',
