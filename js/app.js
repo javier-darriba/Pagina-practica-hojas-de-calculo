@@ -1,4 +1,7 @@
 /* app.js — interfaz, flujo de ejercicios y cuentas (Supabase) */
+const USER_DOMAIN='practica-excel.es';   // dominio interno: los alumnos nunca lo ven
+const PAD='#excel';                        // Supabase exige >= 6 caracteres: se añade solo a la contraseña
+const userOf=e=>String(e).split('@')[0];
 let sb;try{sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}catch(e){}
 let me=null,prof={},prog={},signup=false,E=0,X=0,locked=new Set(),G={};
 const fails={};                                   // fallos en esta sesión, por ejercicio
@@ -49,6 +52,7 @@ g.addEventListener('focusin',e=>{const i=e.target;if(i.tagName!=='INPUT')return;
 g.addEventListener('input',e=>{const i=e.target;raw[i.dataset.r]=i.value;$('fb').textContent=i.dataset.r+' :  '+i.value;refresh()});
 g.addEventListener('focusout',e=>{if(e.target.tagName==='INPUT'){if(e.target.value==='')delete raw[e.target.dataset.r];refresh()}});
 g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key==='ArrowDown'||e.key==='ArrowUp'){const[c,r]=[e.target.dataset.r[0],+e.target.dataset.r.slice(1)],n=g.querySelector(`[data-r="${c}${r+(e.key==='ArrowUp'?-1:1)}"]`);if(n){e.preventDefault();n.focus()}}});
+['copy','cut','paste','contextmenu','dragstart','drop'].forEach(ev=>$('app').addEventListener(ev,e=>e.preventDefault()));
 $('chk').onclick=check;
 $('nxt').onclick=()=>{X<nEx(E)-1?go(E,X+1):E<ENTRADAS.length-1?openEntrada(E+1):0};
 $('rst').onclick=()=>go(E,X);
@@ -59,17 +63,21 @@ async function record(ok){const k=pid(E,X),p=prog[k]||{exercise:k,attempts:0,don
 async function enter(u){me=u;
  const{data:p}=await sb.from('profiles').select('*').eq('id',u.id).single();prof=p||{};
  const{data:rows}=await sb.from('progress').select('*').eq('user_id',u.id);prog={};(rows||[]).forEach(r=>prog[r.exercise]=r);
- $('who').textContent=(prof.full_name||u.email)+(prof.role==='teacher'?' · profesor':'');$('bpan').hidden=prof.role!=='teacher';
+ $('who').textContent=(prof.full_name||userOf(u.email))+(prof.role==='teacher'?' · profesor':'');$('bpan').hidden=prof.role!=='teacher';
  show('app');openEntrada(Math.max(0,ENTRADAS.findIndex((_,e)=>nEx(e)&&nDone(e)<nEx(e))))}
 async function init(){if(!sb){show('auth');$('amsg').textContent='Falta configurar Supabase en js/config.js.';return}
  const{data:{session}}=await sb.auth.getSession();if(session)enter(session.user);else show('auth')}
 $('aswap').onclick=()=>{signup=!signup;$('aname').hidden=!signup;$('atitle').textContent=signup?'Crear cuenta':'Entrar';$('ago').textContent=signup?'Registrarme':'Entrar';$('aswap').textContent=signup?'Ya tengo cuenta':'Crear cuenta'};
-$('ago').onclick=async()=>{const m=$('amsg');m.textContent='';if(!sb){m.textContent='Falta configurar Supabase.';return}
- const email=$('aemail').value.trim(),password=$('apass').value,name=$('aname').value.trim();
+$('ago').onclick=async()=>{const m=$('amsg');m.textContent='';if(!sb){m.textContent='Falta configurar Supabase en js/config.js.';return}
+ const user=$('aemail').value.trim().toLowerCase(),pw=$('apass').value,name=$('aname').value.trim();
+ if(!user||!pw){m.textContent='Escribe tu nombre de usuario y tu contraseña.';return}
+ if(!user.includes('@')&&!/^[a-z0-9._-]+$/.test(user)){m.textContent='El usuario solo puede tener letras sin tilde, números, punto, guion y guion bajo (sin espacios).';return}
  if(signup&&!name){m.textContent='Escribe tu nombre y apellidos.';return}
- const r=signup?await sb.auth.signUp({email,password,options:{data:{full_name:name}}}):await sb.auth.signInWithPassword({email,password});
- if(r.error){m.textContent=r.error.message;return}
- if(!r.data.session){m.textContent='Cuenta creada. Confirma tu correo y luego entra.';return}
+ const email=user.includes('@')?user:user+'@'+USER_DOMAIN;let r;
+ if(signup)r=await sb.auth.signUp({email,password:pw+PAD,options:{data:{full_name:name}}});
+ else{r=await sb.auth.signInWithPassword({email,password:pw+PAD});if(r.error)r=await sb.auth.signInWithPassword({email,password:pw})}
+ if(r.error){const t=r.error.message;m.textContent=/already|registered/i.test(t)?'Ese nombre de usuario ya existe. Elige otro.':/invalid login/i.test(t)?'Usuario o contraseña incorrectos.':t;return}
+ if(!r.data.session){m.textContent='Cuenta creada, pero Supabase pide confirmar el correo: desactiva «Confirm email» en Authentication.';return}
  enter(r.data.user)};
 $('bout').onclick=async()=>{await sb.auth.signOut();me=null;show('auth')};
 $('bpan').onclick=async()=>{if(!$('panel').hidden){show('app');return}
@@ -80,6 +88,6 @@ $('bpan').onclick=async()=>{if(!$('panel').hidden){show('app');return}
  let h='<h2>Progreso de la clase</h2><div class="wrap"><table class="pan"><tr><th>Alumno</th>'+ENTRADAS.map((en,e)=>`<th title="${esc(en.titulo)}">E${e+1}</th>`).join('')+'<th>Total</th><th>Intentos</th></tr>';
  (a.data||[]).forEach(p=>{const m=by[p.id]||{};let n=0,at=0;
   const cells=ENTRADAS.map((en,e)=>{let c=0;en.ejercicios.forEach((_,x)=>{const r=m[pid(e,x)];if(r){at+=r.attempts;if(r.done)c++}});n+=c;return `<td>${nEx(e)?c+'/'+nEx(e):'–'}</td>`}).join('');
-  h+=`<tr><td>${esc(p.full_name||p.email)}</td>${cells}<td>${n}/${tot}</td><td>${at}</td></tr>`});
-  $('panel').innerHTML=h+'</table></div><p class="note">E1…E10 = entradas (ejercicios completados / total). Pasa el ratón por la cabecera para ver el título.</p>'};
+  h+=`<tr><td>${esc(p.full_name||'')} <small>(${esc(userOf(p.email))})</small></td>${cells}<td>${n}/${tot}</td><td>${at}</td></tr>`});
+ $('panel').innerHTML=h+'</table></div><p class="note">E1…E10 = entradas (ejercicios completados / total). Pasa el ratón por la cabecera para ver el título.</p>'};
 init();
