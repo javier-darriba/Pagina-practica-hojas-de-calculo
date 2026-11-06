@@ -30,7 +30,7 @@ function showHelp(){const f=fails[pid(E,X)]||0,a=$('aux');a.hidden=f<1;
 const nxtLabel=()=>X<nEx(E)-1?'Siguiente ejercicio →':E<ENTRADAS.length-1?'Siguiente entrada →':'¡Has terminado todo!';
 function go(e,x){E=e;X=x;const en=ENTRADAS[e],ex=en.ejercicios[x];raw={};locked=new Set();G=ex?ex.g:{};
  $('title').textContent=`${e+1}. ${en.titulo}`+(ex?` · Ejercicio ${x+1} de ${nEx(e)}`:'');
- $('desc').textContent=ex?ex.d:'Esta entrada aún no tiene ejercicios.';$('work').hidden=!ex;
+ $('desc').innerHTML=ex?ex.d:'Esta entrada aún no tiene ejercicios.';$('work').hidden=!ex;
  if(ex)ex.rows.forEach((row,ri)=>row.forEach((v,ci)=>{if(v!==''){const ref=COLS[ci]+(ri+1);raw[ref]=String(v);locked.add(ref)}}));
  $('msg').textContent='';$('msg').className='';$('fb').textContent='Selecciona una celda amarilla';
  $('nxt').hidden=!ex||!isDone(e,x);$('nxt').textContent=nxtLabel();
