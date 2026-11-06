@@ -5,7 +5,7 @@ const VENTAS=[['Día','Ventas'],['Lunes',120],['Martes',''],['Miércoles',90],['
 const PRECIOS=[['Producto','Precio'],['Pan',1.2],['Leche','agotado'],['Queso',3.5],['Huevos','agotado'],['Agua',0.5]];
 const ASIST=[['Alumno','Asistencia'],['Ana','Sí'],['Luis','No'],['Marta','Sí'],['Pablo',''],['Sara','Sí']];
 const CT=/CONTAR\(|COUNT\(/,CA=/CONTARA\(|COUNTA\(/;
-(window.ENTRADAS=window.ENTRADAS||[])[5]={titulo:'CONTAR y CONTARA',ejercicios:[
+(window.ENTRADAS=window.ENTRADAS||[])[4]={titulo:'CONTAR y CONTARA',ejercicios:[
 {d:'Cuando una tabla tiene huecos, a veces interesa saber cuántas celdas tienen un valor. La función <b>CONTAR</b> cuenta cuántas celdas de un rango contienen números (ignora las vacías). Algunos alumnos todavía no tienen nota. Escribe <code>=CONTAR(B2:B6)</code> para saber a cuántos alumnos se les ha puesto nota.',
  rows:NOTAS,g:{B7:[3,CT]},
  h:'Escribe la fórmula tal cual: <code>=CONTAR(</code>, el rango de las notas y el paréntesis de cierre. Debe dar 3.',
