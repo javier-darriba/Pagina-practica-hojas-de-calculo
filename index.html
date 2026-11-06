@@ -2,48 +2,10 @@
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Practica Excel</title>
-<style>
-:root{--bg:#f6f7f9;--card:#fff;--tx:#1d2330;--mu:#667085;--bd:#d8dce3;--ac:#1d7a46;--acb:#e3f4ea;--goal:#fff3b8;--lock:#eceff3;--err:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1d222a;--tx:#e8ebf0;--mu:#9aa3b2;--bd:#363d49;--ac:#4cc27f;--acb:#1b3a2a;--goal:#4a4216;--lock:#262c35;--err:#ff7b6b;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#14171c;--card:#1d222a;--tx:#e8ebf0;--mu:#9aa3b2;--bd:#363d49;--ac:#4cc27f;--acb:#1b3a2a;--goal:#4a4216;--lock:#262c35;--err:#ff7b6b;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
-main{max-width:1000px;margin:0 auto;padding:16px}
-h1{font-size:1.4rem;margin:0 0 2px}.sub{color:var(--mu);margin:0 0 16px;font-size:.92rem}
-.layout{display:grid;grid-template-columns:220px 1fr;gap:16px}
-@media(max-width:720px){.layout{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px}
-.list{display:flex;flex-direction:column;gap:6px}
-@media(max-width:720px){.list{flex-direction:row;flex-wrap:wrap}}
-.list button{text-align:left;background:transparent;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;font:inherit;font-size:.9rem;cursor:pointer}
-.list button.on{background:var(--acb);border-color:var(--ac);font-weight:600}
-.prog{color:var(--mu);font-size:.85rem;margin:10px 0 0}
-h2{font-size:1.1rem;margin:0 0 4px}.desc{margin:0 0 12px}
-#fb{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;background:var(--lock);border-radius:6px;padding:6px 10px;margin-bottom:8px;min-height:32px;overflow-x:auto;white-space:nowrap}
-.wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:8px}
-table{border-collapse:collapse;width:100%}
-th{background:var(--lock);color:var(--mu);font-weight:500;font-size:.78rem;padding:4px 8px;border:1px solid var(--bd);min-width:28px}
-td{border:1px solid var(--bd);padding:0}
-td input{width:96px;border:0;padding:6px 8px;font:inherit;font-size:.9rem;background:var(--card);color:var(--tx);outline:none;display:block}
-td:nth-child(2) input{width:175px}
-td input.lock{background:var(--lock)}td input.goal{background:var(--goal)}
-td input:focus{outline:2px solid var(--ac);outline-offset:-2px}
-td input.err{color:var(--err)}
-.bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.bar button{font:inherit;font-size:.9rem;padding:8px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
-.bar .p{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:600}
-#msg{margin-top:12px;font-size:.92rem}#msg.ok{color:var(--ac);font-weight:600}#msg.ko{color:var(--err)}
-#aux{margin-top:10px;font-size:.9rem;background:var(--lock);padding:8px 12px;border-radius:8px}
-.note{color:var(--mu);font-size:.8rem;margin-top:10px}
-[hidden]{display:none!important}
-#auth{display:grid;gap:10px;max-width:360px;margin:24px auto}
-#auth input{font:inherit;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx)}
-.pan td,.pan th{padding:6px 10px;white-space:nowrap}.pan td{text-align:center}.pan td:first-child{text-align:left}
-</style></head><body><main>
-<h1>Practica de hojas de cálculo</h1>
-<p class="sub">Escribe fórmulas en las celdas amarillas y pulsa «Comprobar».</p>
-<p class="sub">No pongAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.</p>
+<link rel="stylesheet" href="css/style.css">
+</head><body><main>
+<h1>Practica Excel</h1>
+<p class="sub">Ejercicios gratuitos y sin límites. Escribe fórmulas en las celdas amarillas y pulsa «Comprobar».</p>
 <form id="auth" class="card" onsubmit="return false" hidden>
 <b id="atitle">Entrar</b>
 <input id="aname" placeholder="Nombre y apellidos" hidden>
@@ -57,133 +19,26 @@ td input.err{color:var(--err)}
 <aside class="card"><div class="list" id="list"></div><p class="prog" id="prog"></p></aside>
 <section class="card">
 <h2 id="title"></h2><p class="desc" id="desc"></p>
+<div class="chips" id="exnav"></div>
+<div id="work">
 <div id="fb"></div>
 <div class="wrap"><div id="grid"></div></div>
-<div class="bar"><button class="p" id="chk">Comprobar</button><button id="hint">Pista</button><button id="sol">Ver solución</button><button id="nxt">Siguiente →</button><button id="rst">Reiniciar ejercicio</button></div>
+<div class="bar"><button class="p" id="chk">Comprobar</button><button id="nxt" hidden>Siguiente →</button><button id="rst">Reiniciar ejercicio</button></div>
 <div id="msg"></div><div id="aux" hidden></div>
-<p class="note">Funciones disponibles (en español o inglés): SUMA, PROMEDIO, MAX, MIN, CONTAR, SI, REDONDEAR, CONTAR.SI, SUMAR.SI, Y, O. Decimales con punto.</p>
-</section></div></main>
+<p class="note">Funciones (en español o inglés): SUMA, PROMEDIO, MAX, MIN, CONTAR, SI, REDONDEAR, CONTAR.SI, SUMAR.SI, Y, O. Decimales con punto.</p>
+</div></section></div></main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script>
-/* ===== EJERCICIOS: edita o añade aquí los tuyos =====
- t: título · d: enunciado · rows: datos (filas desde A1, '' = vacío)
- g: celdas objetivo {celda:[valor esperado, regex opcional que debe cumplir la fórmula]}
- h: pista · s: solución */
-const EX=[
-{t:'1. Sumar',d:'Calcula en B7 el total de ventas de la semana con la función SUMA.',rows:[['Día','Ventas'],['Lunes',120],['Martes',85],['Miércoles',140],['Jueves',95],['Viernes',160],['Total','']],g:{B7:[600,/SUM/]},h:'Escribe =SUMA( y selecciona B2:B6.',s:'=SUMA(B2:B6)'},
-{t:'2. Media, máximo y mínimo',d:'Calcula la nota media (B7), la máxima (B8) y la mínima (B9).',rows:[['Alumno','Nota'],['Ana',7],['Luis',5],['Marta',9],['Pablo',6],['Sara',8],['Media',''],['Máxima',''],['Mínima','']],g:{B7:[7,/AVERAGE|PROMEDIO/],B8:[9,/MAX/],B9:[5,/MIN/]},h:'Usa PROMEDIO, MAX y MIN sobre B2:B6.',s:'=PROMEDIO(B2:B6)  =MAX(B2:B6)  =MIN(B2:B6)'},
-{t:'3. Operaciones con celdas',d:'En D2:D5 calcula Precio × Unidades de cada producto y en D6 el total general.',rows:[['Producto','Precio','Uds.','Total'],['Cuaderno',2,10,''],['Bolígrafo',1,25,''],['Carpeta',3,8,''],['Mochila',25,2,''],['Total general','','','']],g:{D2:[20],D3:[25],D4:[24],D5:[50],D6:[119,/SUM/]},h:'En D2 escribe =B2*C2 y repite para cada fila.',s:'D2: =B2*C2 … D6: =SUMA(D2:D5)'},
-{t:'4. Función SI',d:'En C2:C6 escribe «Aprobado» si la nota es 5 o más y «Suspenso» si no.',rows:[['Alumno','Nota','Resultado'],['Ana',7,''],['Luis',4,''],['Marta',9,''],['Pablo',3,''],['Sara',5,'']],g:{C2:['Aprobado',/IF|SI\(/],C3:['Suspenso',/IF|SI\(/],C4:['Aprobado',/IF|SI\(/],C5:['Suspenso',/IF|SI\(/],C6:['Aprobado',/IF|SI\(/]},h:'=SI(condición; valor si cierto; valor si falso)',s:'=SI(B2>=5;"Aprobado";"Suspenso")'},
-{t:'5. Referencias absolutas',d:'Calcula el precio con IVA en C4:C6 usando el IVA de B1. Fíjalo con $ para que no se desplace.',rows:[['IVA',0.21],['','',''],['Producto','Precio','Con IVA'],['Camiseta',100,''],['Pantalón',50,''],['Gorra',20,'']],g:{C4:[121,/\$/],C5:[60.5,/\$/],C6:[24.2,/\$/]},h:'Precio × (1 + IVA), con $B$1.',s:'=B4*(1+$B$1)'},
-{t:'6. Contar y sumar con condición',d:'En B9 cuenta cuántos gastos son de «Comida» y en B10 suma su importe.',rows:[['Categoría','Importe'],['Comida',20],['Ocio',30],['Comida',15],['Transporte',10],['Ocio',25],['Comida',35],['',''],['Nº gastos en Comida',''],['Total en Comida','']],g:{B9:[3,/COUNTIF|CONTAR\.SI/],B10:[70,/SUMIF|SUMAR\.SI/]},h:'CONTAR.SI(rango; criterio) y SUMAR.SI(rango; criterio; rango_suma).',s:'=CONTAR.SI(A2:A7;"Comida")  =SUMAR.SI(A2:A7;"Comida";B2:B7)'},
-{t:'7. Redondear',d:'Redondea cada valor a 2 decimales en B2:B4.',rows:[['Valor','Redondeado'],[3.14159,''],[2.71828,''],[1.41421,'']],g:{B2:[3.14,/ROUND|REDONDEAR/],B3:[2.72,/ROUND|REDONDEAR/],B4:[1.41,/ROUND|REDONDEAR/]},h:'=REDONDEAR(número; decimales)',s:'=REDONDEAR(A2;2)'}
-];
-/* ===== Motor de la hoja ===== */
-const $=id=>document.getElementById(id),COLS='ABCDEF'.split(''),ROWS=11,PEND={};
-/* ===== CONFIGURACIÓN DE SUPABASE (Project Settings > API) ===== */
-const SUPABASE_URL='https://rhluhgcfnwzcrkxocdik.supabase.co',SUPABASE_KEY='sb_publishable_58BVWuUb--PLCL0CQWgAcw_QOkQVV3G';
-let sb;try{sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}catch(e){}
-let cur=0,raw={},cache={},locked=new Set(),G={},done=[],me=null,prof={},prog={},signup=false;
-const nums=a=>a.flat(9).filter(v=>typeof v==='number');
-const sum=a=>a.reduce((x,y)=>x+y,0);
-const mt=(v,c)=>{if(typeof c==='string'){const m=c.match(/^(<=|>=|<>|<|>|=)(.*)$/);if(m){const n=m[2].trim().replace(',','.'),b=n!==''&&!isNaN(n)?Number(n):m[2].toLowerCase(),a=typeof v==='string'?v.toLowerCase():v;return {'<':a<b,'>':a>b,'<=':a<=b,'>=':a>=b,'=':a==b,'<>':a!=b}[m[1]]}return String(v).toLowerCase()===c.toLowerCase()}return v===c};
-const F={SUM:(...a)=>sum(nums(a)),
-AVERAGE:(...a)=>{const n=nums(a);if(!n.length)throw new Error('#DIV/0!');return sum(n)/n.length},
-MAX:(...a)=>Math.max(...nums(a)),MIN:(...a)=>Math.min(...nums(a)),COUNT:(...a)=>nums(a).length,
-IF:(c,a,b)=>c?a:(b===undefined?false:b),
-ROUND:(x,n=0)=>{const m=10**n;return Math.round(x*m)/m},
-COUNTIF:(r,c)=>r.filter(v=>mt(v,c)).length,
-SUMIF:(r,c,s)=>{s=s||r;return sum(r.map((v,i)=>mt(v,c)&&typeof s[i]==='number'?s[i]:0))},
-AND:(...a)=>a.flat(9).every(Boolean),OR:(...a)=>a.flat(9).some(Boolean)};
-const AL={SUMA:'SUM',PROMEDIO:'AVERAGE',CONTAR:'COUNT',SI:'IF',REDONDEAR:'ROUND','CONTAR.SI':'COUNTIF','SUMAR.SI':'SUMIF',Y:'AND',O:'OR'};
-for(const k in AL)F[k]=F[AL[k]];
-const pr=r=>{const m=r.match(/^([A-Z]+)(\d+)$/);return[m[1].charCodeAt(0)-65,+m[2]]};
-function R(a,b){const[c1,r1]=pr(a),[c2,r2]=pr(b),o=[];for(let r=Math.min(r1,r2);r<=Math.max(r1,r2);r++)for(let c=Math.min(c1,c2);c<=Math.max(c1,c2);c++)o.push(val(String.fromCharCode(65+c)+r));return o}
-const C=ref=>{const v=val(ref);return v===''?0:v};
-function run(f){
- const re=/"[^"]*"|\$?[A-Z]{1,2}\$?\d+:\$?[A-Z]{1,2}\$?\d+|[A-Z][A-Z.]*(?=\()|\$?[A-Z]{1,2}\$?\d+|\d+\.?\d*%?|<>|<=|>=|[-+*\/^&=<>(),;]|\s+/gi;
- const t=f.match(re)||[];if(!t.length||t.join('')!==f)throw new Error('#NOMBRE?');
- let js='';
- for(const k of t){const K=k.toUpperCase();
-  if(k[0]==='"')js+=k;
-  else if(/^\$?[A-Z]{1,2}\$?\d+:/.test(K)){const[a,b]=K.replace(/\$/g,'').split(':');js+=`R("${a}","${b}")`}
-  else if(/^[A-Z.]+$/.test(K)){if(!(K in F))throw new Error('#NOMBRE?');js+=`F["${K}"]`}
-  else if(/^\$?[A-Z]{1,2}\$?\d+$/.test(K))js+=`C("${K.replace(/\$/g,'')}")`;
-  else if(/^\d/.test(K))js+=K.endsWith('%')?`(${K.slice(0,-1)}/100)`:K;
-  else js+={'^':'**','&':'+""+','=':'==','<>':'!=',';':','}[K]||K}
- const r=new Function('R','C','F','return '+js)(R,C,F);
- if(Array.isArray(r)||typeof r==='number'&&isNaN(r))throw new Error('#VALOR!');
- if(r===Infinity||r===-Infinity)throw new Error('#DIV/0!');
- return r}
-function val(ref){
- if(ref in cache){if(cache[ref]===PEND)throw new Error('#CIRC!');return cache[ref]}
- cache[ref]=PEND;const r=raw[ref];let v;
- if(r===undefined||r==='')v='';
- else if(r[0]==='='){try{v=run(r.slice(1))}catch(e){v=/^#/.test(e.message)?e.message:'#ERROR!'}}
- else{const n=r.trim().replace(',','.');v=n!==''&&!isNaN(n)?Number(n):r}
- cache[ref]=v;return v}
-const fmt=v=>typeof v==='number'?String(Math.round(v*1e6)/1e6):typeof v==='boolean'?(v?'VERDADERO':'FALSO'):String(v);
-/* ===== Interfaz ===== */
-function refresh(){cache={};document.querySelectorAll('#grid input').forEach(i=>{const ref=i.dataset.r,v=val(ref);
- i.classList.toggle('err',typeof v==='string'&&/^#/.test(v)&&raw[ref]!==v);
- i.style.textAlign=typeof v==='number'?'right':'left';
- if(i!==document.activeElement)i.value=raw[ref]===undefined?'':fmt(v)})}
-function build(){let h='<table><tr><th></th>'+COLS.map(c=>`<th>${c}</th>`).join('')+'</tr>';
- for(let r=1;r<=ROWS;r++){h+=`<tr><th>${r}</th>`;for(const c of COLS){const ref=c+r,l=locked.has(ref);h+=`<td><input data-r="${ref}" class="${ref in G?'goal':l?'lock':''}" ${l?'readonly':''} autocomplete="off" spellcheck="false"></td>`}h+='</tr>'}
- $('grid').innerHTML=h+'</table>';refresh()}
-function lst(){$('list').innerHTML='';EX.forEach((e,i)=>{const b=document.createElement('button');b.textContent=(done.includes(i)?'✓ ':'')+e.t;b.className=i===cur?'on':'';b.onclick=()=>go(i);$('list').appendChild(b)});
- $('prog').textContent=`${done.length} de ${EX.length} completados`}
-function go(i){cur=i;const e=EX[i];raw={};locked=new Set();G=e.g;
- e.rows.forEach((row,ri)=>row.forEach((v,ci)=>{if(v!==''){const ref=COLS[ci]+(ri+1);raw[ref]=String(v);locked.add(ref)}}));
- $('title').textContent=e.t;$('desc').textContent=e.d;$('msg').textContent='';$('msg').className='';$('aux').hidden=true;$('fb').textContent='Selecciona una celda amarilla';build();lst()}
-function check(){cache={};const e=EX[cur],errs=[];
- for(const[ref,[exp,re]]of Object.entries(e.g)){const r=raw[ref]||'';
-  if(r[0]!=='='){errs.push(`${ref}: escribe una fórmula (empieza por =), no el resultado a mano.`);continue}
-  const v=val(ref),ok=typeof exp==='number'?typeof v==='number'&&Math.abs(v-exp)<.005:String(v).trim().toLowerCase()===String(exp).toLowerCase();
-  if(!ok)errs.push(`${ref}: ahora da «${fmt(v)}», que no es el valor esperado.`);
-  else if(re&&!re.test(r.toUpperCase()))errs.push(`${ref}: el resultado es correcto, pero el ejercicio pide usar otra función o referencia.`)}
- const m=$('msg');record(!errs.length);
- if(errs.length){m.className='ko';m.innerHTML=errs.map(x=>'• '+x).join('<br>')}
- else{m.className='ok';m.textContent='¡Correcto! Ejercicio completado.';}}
-const g=$('grid');
-g.addEventListener('focusin',e=>{const i=e.target;if(i.tagName!=='INPUT')return;i.value=raw[i.dataset.r]||'';$('fb').textContent=i.dataset.r+' :  '+(raw[i.dataset.r]||'')});
-g.addEventListener('input',e=>{const i=e.target;raw[i.dataset.r]=i.value;$('fb').textContent=i.dataset.r+' :  '+i.value;refresh()});
-g.addEventListener('focusout',e=>{if(e.target.tagName==='INPUT'){if(e.target.value==='')delete raw[e.target.dataset.r];refresh()}});
-g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key==='ArrowDown'||e.key==='ArrowUp'){const[c,r]=[e.target.dataset.r[0],+e.target.dataset.r.slice(1)],n=g.querySelector(`[data-r="${c}${r+(e.key==='ArrowUp'?-1:1)}"]`);if(n){e.preventDefault();n.focus()}}});
-$('chk').onclick=check;
-$('hint').onclick=()=>{$('aux').hidden=false;$('aux').textContent='Pista: '+EX[cur].h};
-$('sol').onclick=()=>{$('aux').hidden=false;$('aux').textContent='Solución: '+EX[cur].s};
-$('nxt').onclick=()=>go((cur+1)%EX.length);
-$('rst').onclick=()=>go(cur);
-/* ===== Cuentas y registro ===== */
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const calcDone=()=>Object.values(prog).filter(x=>x.done).map(x=>x.exercise);
-function show(w){$('auth').hidden=w!=='auth';$('top').hidden=w==='auth';$('app').hidden=w!=='app';$('panel').hidden=w!=='panel'}
-async function record(ok){const p=prog[cur]||{exercise:cur,attempts:0,done:false};p.attempts++;if(ok)p.done=true;prog[cur]=p;done=calcDone();lst();
- const{error}=await sb.from('progress').upsert({user_id:me.id,exercise:cur,attempts:p.attempts,done:p.done,updated_at:new Date().toISOString()});
- if(error)$('msg').textContent='No se pudo guardar tu progreso: '+error.message}
-async function enter(u){me=u;
- const{data:p}=await sb.from('profiles').select('*').eq('id',u.id).single();prof=p||{};
- const{data:rows}=await sb.from('progress').select('*').eq('user_id',u.id);prog={};(rows||[]).forEach(r=>prog[r.exercise]=r);done=calcDone();
- $('who').textContent=(prof.full_name||u.email)+(prof.role==='teacher'?' · profesor':'');$('bpan').hidden=prof.role!=='teacher';
- show('app');go(0)}
-async function init(){if(!sb){show('auth');$('amsg').textContent='Falta configurar Supabase: pega tu URL y tu clave en el código.';return}
- const{data:{session}}=await sb.auth.getSession();if(session)enter(session.user);else show('auth')}
-$('aswap').onclick=()=>{signup=!signup;$('aname').hidden=!signup;$('atitle').textContent=signup?'Crear cuenta':'Entrar';$('ago').textContent=signup?'Registrarme':'Entrar';$('aswap').textContent=signup?'Ya tengo cuenta':'Crear cuenta'};
-$('ago').onclick=async()=>{const m=$('amsg');m.textContent='';if(!sb){m.textContent='Falta configurar Supabase.';return}
- const email=$('aemail').value.trim(),password=$('apass').value,name=$('aname').value.trim();
- if(signup&&!name){m.textContent='Escribe tu nombre y apellidos.';return}
- const r=signup?await sb.auth.signUp({email,password,options:{data:{full_name:name}}}):await sb.auth.signInWithPassword({email,password});
- if(r.error){m.textContent=r.error.message;return}
- if(!r.data.session){m.textContent='Cuenta creada. Confirma tu correo y luego entra.';return}
- enter(r.data.user)};
-$('bout').onclick=async()=>{await sb.auth.signOut();me=null;show('auth')};
-$('bpan').onclick=async()=>{if(!$('panel').hidden){show('app');return}
- show('panel');$('panel').textContent='Cargando…';
- const[a,b]=await Promise.all([sb.from('profiles').select('*').eq('role','student').order('full_name'),sb.from('progress').select('*')]);
- const by={};(b.data||[]).forEach(r=>{(by[r.user_id]=by[r.user_id]||{})[r.exercise]=r});
- let h='<h2>Progreso de la clase</h2><div class="wrap"><table class="pan"><tr><th>Alumno</th>'+EX.map((e,i)=>`<th>${i+1}</th>`).join('')+'<th>Total</th></tr>';
- (a.data||[]).forEach(p=>{const m=by[p.id]||{};let n=0;h+=`<tr><td>${esc(p.full_name||p.email)}</td>`+EX.map((e,i)=>{const r=m[i];if(r&&r.done)n++;return `<td>${r?(r.done?'✓':'·')+' <small>('+r.attempts+')</small>':''}</td>`}).join('')+`<td>${n}/${EX.length}</td></tr>`});
- $('panel').innerHTML=h+'</table></div><p class="note">✓ completado · (n) = intentos de comprobación.</p>'};
-init();
-</script></body></html>
+<script src="js/config.js"></script>
+<script src="js/ejercicios/entrada01.js"></script>
+<script src="js/ejercicios/entrada02.js"></script>
+<script src="js/ejercicios/entrada03.js"></script>
+<script src="js/ejercicios/entrada04.js"></script>
+<script src="js/ejercicios/entrada05.js"></script>
+<script src="js/ejercicios/entrada06.js"></script>
+<script src="js/ejercicios/entrada07.js"></script>
+<script src="js/ejercicios/entrada08.js"></script>
+<script src="js/ejercicios/entrada09.js"></script>
+<script src="js/ejercicios/entrada10.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/app.js"></script>
+</body></html>
