@@ -29,7 +29,7 @@ function nav(){$('exnav').innerHTML='';
 function openEntrada(e){const f=ENTRADAS[e].ejercicios.findIndex((_,x)=>!isDone(e,x));go(e,f<0?0:f)}
 /* Pista tras el 1.er fallo; pista + solución explicada tras el 2.º */
 function showHelp(){const f=fails[pid(E,X)]||0,a=$('aux');a.hidden=f<1;
- if(f>=1)a.innerHTML='<b>Pista:</b> '+cur().h+(f>=2?'<br><br><b>Solución explicada:</b> '+cur().s:'')}
+ if(f>=1)a.innerHTML='<b>Pista:</b> '+cur().h+(f>=2?'<br><br><b>'+(ENTRADAS[E].opcional?'Más pistas:':'Solución explicada:')+'</b> '+cur().s:'')}
 const nxtLabel=()=>X<nEx(E)-1?'Siguiente ejercicio →':E<ENTRADAS.length-1?'Siguiente entrada →':'¡Has terminado todo!';
 function go(e,x){E=e;X=x;const en=ENTRADAS[e],ex=en.ejercicios[x];raw={};locked=new Set();G=ex?ex.g:{};
  $('title').textContent=`${e+1}. ${en.titulo}`+(ex?` · Ejercicio ${x+1} de ${nEx(e)}`:'');
