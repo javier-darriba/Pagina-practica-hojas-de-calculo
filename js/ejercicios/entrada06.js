@@ -2,7 +2,7 @@
 (()=>{
 const G=[['Categoría','Importe'],['Comida',20],['Ocio',30],['Comida',15],['Transporte',10],['Ocio',25],['Comida',35]];
 const CS=/CONTAR\.SI\(|COUNTIF\(/,SS=/SUMAR\.SI\(|SUMIF\(/;
-(window.ENTRADAS=window.ENTRADAS||[])[6]={titulo:'CONTAR.SI y SUMAR.SI (opcional)',opcional:true,ejercicios:[
+(window.ENTRADAS=window.ENTRADAS||[])[5]={titulo:'CONTAR.SI y SUMAR.SI (opcional)',opcional:true,ejercicios:[
 {d:'La función <b>CONTAR.SI</b> cuenta cuántas celdas de un rango cumplen una condición. Se escribe <code>=CONTAR.SI(rango; criterio)</code> y, si el criterio es un texto, va entre comillas. En esta tabla de gastos, cuenta cuántos gastos son de «Comida».',
  rows:G,g:{B8:[3,CS]},h:'El rango es la columna donde está escrito el tipo de gasto (la de las categorías), no la de los importes. El criterio es el texto «Comida» entre comillas.',
  s:'La fórmula tiene la forma <code>=CONTAR.SI(A2:A7; ...)</code>, donde en lugar de los puntos va el texto que buscas, entre comillas. Debe dar 3.'},
