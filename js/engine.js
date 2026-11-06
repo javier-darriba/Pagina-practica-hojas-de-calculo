@@ -7,13 +7,13 @@ const sum=a=>a.reduce((x,y)=>x+y,0);
 const mt=(v,c)=>{if(typeof c==='string'){const m=c.match(/^(<=|>=|<>|<|>|=)(.*)$/);if(m){const n=m[2].trim().replace(',','.'),b=n!==''&&!isNaN(n)?Number(n):m[2].toLowerCase(),a=typeof v==='string'?v.toLowerCase():v;return {'<':a<b,'>':a>b,'<=':a<=b,'>=':a>=b,'=':a==b,'<>':a!=b}[m[1]]}return String(v).toLowerCase()===c.toLowerCase()}return v===c};
 const F={SUM:(...a)=>sum(nums(a)),
 AVERAGE:(...a)=>{const n=nums(a);if(!n.length)throw new Error('#DIV/0!');return sum(n)/n.length},
-MAX:(...a)=>Math.max(...nums(a)),MIN:(...a)=>Math.min(...nums(a)),COUNT:(...a)=>nums(a).length,
+MAX:(...a)=>Math.max(...nums(a)),MIN:(...a)=>Math.min(...nums(a)),COUNT:(...a)=>nums(a).length,COUNTA:(...a)=>a.flat(9).filter(v=>v!=='').length,CONCAT:(...a)=>a.flat(9).join(''),UPPER:t=>String(t).toUpperCase(),LOWER:t=>String(t).toLowerCase(),LEN:t=>String(t).length,LEFT:(t,n=1)=>String(t).slice(0,n),RIGHT:(t,n=1)=>n>0?String(t).slice(-n):'',
 IF:(c,a,b)=>c?a:(b===undefined?false:b),
 ROUND:(x,n=0)=>{const m=10**n;return Math.round(x*m)/m},
 COUNTIF:(r,c)=>r.filter(v=>mt(v,c)).length,
 SUMIF:(r,c,s)=>{s=s||r;return sum(r.map((v,i)=>mt(v,c)&&typeof s[i]==='number'?s[i]:0))},
 AND:(...a)=>a.flat(9).every(Boolean),OR:(...a)=>a.flat(9).some(Boolean)};
-const AL={SUMA:'SUM',PROMEDIO:'AVERAGE',CONTAR:'COUNT',SI:'IF',REDONDEAR:'ROUND','CONTAR.SI':'COUNTIF','SUMAR.SI':'SUMIF',Y:'AND',O:'OR'};
+const AL={SUMA:'SUM',PROMEDIO:'AVERAGE',CONTAR:'COUNT',CONTARA:'COUNTA',CONCATENAR:'CONCAT',MAYUSC:'UPPER',MINUSC:'LOWER',LARGO:'LEN',IZQUIERDA:'LEFT',DERECHA:'RIGHT',SI:'IF',REDONDEAR:'ROUND','CONTAR.SI':'COUNTIF','SUMAR.SI':'SUMIF',Y:'AND',O:'OR'};
 for(const k in AL)F[k]=F[AL[k]];
 const pr=r=>{const m=r.match(/^([A-Z]+)(\d+)$/);return[m[1].charCodeAt(0)-65,+m[2]]};
 function R(a,b){const[c1,r1]=pr(a),[c2,r2]=pr(b),o=[];for(let r=Math.min(r1,r2);r<=Math.max(r1,r2);r++)for(let c=Math.min(c1,c2);c<=Math.max(c1,c2);c++)o.push(val(String.fromCharCode(65+c)+r));return o}
