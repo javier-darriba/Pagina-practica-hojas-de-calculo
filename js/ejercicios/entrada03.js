@@ -1,2 +1,46 @@
-/* Entrada 3: copia el formato de entrada01.js y añade aquí sus 10 ejercicios. */
-(window.ENTRADAS=window.ENTRADAS||[])[2]={titulo:'Función SI',ejercicios:[]};
+/* Entrada 3: MIN y MAX */
+(()=>{
+const T1=[['Día','Mínima (°C)','Máxima (°C)'],['Lunes',8,17],['Martes',6,15],['Miércoles',9,19],['Jueves',11,22],['Viernes',7,18],['Sábado',5,16],['Domingo',10,21]];
+const T2=[['Alumno','Mates','Lengua'],['Ana',7,9],['Luis',5,6],['Marta',10,8],['Pablo',4,7],['Sara',8,3]];
+(window.ENTRADAS=window.ENTRADAS||[])[2]={titulo:'MIN y MAX',ejercicios:[
+{d:'La función <b>MAX</b> devuelve el número más grande de un grupo de celdas. Calcula la temperatura máxima más alta de la semana escribiendo <code>=MAX(C2:C8)</code> en la celda amarilla.',
+ rows:T1,g:{C9:[22,/MAX/]},
+ h:'Escribe la fórmula tal cual aparece en el enunciado: empieza por <code>=</code>, sigue el nombre de la función, el rango entre paréntesis y cierra el paréntesis. Debe dar 22.',
+ s:'<code>=MAX(C2:C8)</code> mira todas las celdas desde C2 hasta C8 (las temperaturas máximas de cada día) y devuelve la mayor: 22, que fue el jueves.'},
+{d:'Ahora practica tú: usa la función MAX para calcular la temperatura <b>mínima</b> más alta de la semana, es decir, el día en que menos frío hizo por la noche.',
+ rows:T1,g:{B9:[11,/MAX/]},
+ h:'Fíjate en qué columna están las temperaturas mínimas y escribe el rango desde la primera celda con datos hasta la última. Debe dar 11.',
+ s:'Las mínimas están en la columna B, de B2 a B8. Buscamos la mayor de ellas, así que la fórmula es <code>=MAX(B2:B8)</code> = 11.'},
+{d:'La función <b>MIN</b> es la contraria de MAX: devuelve el número más pequeño de un grupo de celdas. Calcula la temperatura mínima más baja de la semana escribiendo <code>=MIN(B2:B8)</code>.',
+ rows:T1,g:{B9:[5,/MIN/]},
+ h:'Comprueba que has escrito MIN (y no MAX) y que el rango es el de las temperaturas mínimas. Debe dar 5.',
+ s:'<code>=MIN(B2:B8)</code> recorre las mínimas de todos los días y devuelve la menor: 5, que fue el sábado.'},
+{d:'Practica con MIN: calcula la temperatura <b>máxima</b> más baja de la semana, es decir, el día más fresco a la hora de más calor.',
+ rows:T1,g:{C9:[15,/MIN/]},
+ h:'Cuidado con la columna: las temperaturas máximas no están en la misma que las mínimas. Usa MIN con el rango de la columna correcta. Debe dar 15.',
+ s:'Las máximas están en C2:C8 y buscamos la menor: <code>=MIN(C2:C8)</code> = 15 (el martes).'},
+{d:'No siempre hay que mirar todos los días. Usa la función MIN para calcular la temperatura máxima más baja entre el <b>miércoles y el viernes</b> (tres días seguidos).',
+ rows:T1,g:{C9:[18,/MIN/]},
+ h:'Mira en qué filas están el miércoles y el viernes: el rango solo debe incluir esos tres días y ninguno más. Debe dar 18.',
+ s:'Miércoles, jueves y viernes están en las filas 4, 5 y 6, así que el rango de máximas es C4:C6: <code>=MIN(C4:C6)</code> = 18 (comparando 19, 22 y 18).'},
+{d:'Cuando los días no están seguidos no se puede usar un rango: hay que escribir cada celda separada por punto y coma. Calcula con MIN la temperatura mínima más baja entre el <b>lunes, el miércoles y el viernes</b>.',
+ rows:T1,g:{B9:[7,/MIN/]},
+ h:'Son tres celdas sueltas de la columna de mínimas, separadas por <code>;</code>. Busca la fila de cada día. Debe dar 7.',
+ s:'Lunes está en la fila 2, miércoles en la 4 y viernes en la 6: <code>=MIN(B2; B4; B6)</code> compara 8, 9 y 7 y devuelve 7.'},
+{d:'Un rango también puede ser un rectángulo que abarque varias columnas. Usa la función MIN para encontrar la temperatura más baja de <b>toda la tabla</b>, con las mínimas y las máximas juntas.',
+ rows:T1,g:{B9:[5,/MIN/]},
+ h:'Un rectángulo se escribe con la celda de la esquina de arriba a la izquierda, dos puntos y la celda de la esquina de abajo a la derecha. Debe dar 5.',
+ s:'Los datos ocupan desde B2 (arriba a la izquierda) hasta C8 (abajo a la derecha): <code>=MIN(B2:C8)</code> = 5.'},
+{d:'Vamos con otra tabla: las notas de cinco alumnos. Usa MAX y MIN para calcular la nota más alta de Mates (primera celda amarilla) y la nota más baja de Mates (segunda celda amarilla).',
+ rows:T2,g:{B7:[10,/MAX/],B8:[4,/MIN/]},
+ h:'Las dos fórmulas usan el mismo rango: las notas de Mates. En la primera celda va MAX y en la segunda MIN. Los resultados son 10 y 4.',
+ s:'En la primera celda escribe <code>=MAX(B2:B6)</code> = 10 y en la segunda <code>=MIN(B2:B6)</code> = 4.'},
+{d:'Excel puede restar el resultado de dos funciones. ¿Cuántos puntos separan la mejor nota de Mates de la peor? Calcula en una sola fórmula la diferencia entre la nota más alta y la más baja de Mates.',
+ rows:T2,g:{B7:[6,/MAX.*MIN|MIN.*MAX/]},
+ h:'Necesitas una resta con dos funciones: <code>función - función</code>. Una calcula la nota más alta y la otra la más baja, las dos sobre las notas de Mates. Debe dar 6.',
+ s:'<code>=MAX(B2:B6)-MIN(B2:B6)</code> = 10 - 4 = 6. Excel calcula primero cada función y luego hace la resta.'},
+{d:'Repaso: calcula en una sola fórmula la diferencia entre la temperatura máxima más alta de la semana y la temperatura mínima más baja de la semana.',
+ rows:T1,g:{C9:[17,/MAX.*MIN|MIN.*MAX/]},
+ h:'Es parecido al ejercicio anterior, pero cada función mira una columna distinta: una las máximas y otra las mínimas. Debe dar 17.',
+ s:'La máxima más alta es <code>MAX(C2:C8)</code> = 22 y la mínima más baja es <code>MIN(B2:B8)</code> = 5. La fórmula <code>=MAX(C2:C8)-MIN(B2:B8)</code> da 17.'}
+]};})();
