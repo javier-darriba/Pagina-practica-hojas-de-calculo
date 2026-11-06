@@ -21,8 +21,8 @@ h2{font-size:1.1rem;margin:0 0 4px}.desc{margin:0 0 12px}
 table{border-collapse:collapse;width:100%}
 th{background:var(--lock);color:var(--mu);font-weight:500;font-size:.78rem;padding:4px 8px;border:1px solid var(--bd);min-width:28px}
 td{border:1px solid var(--bd);padding:0}
-td input{width:96px;border:0;padding:6px 8px;font:inherit;font-size:.9rem;background:var(--card);color:var(--tx);outline:none;display:block}
-td:nth-child(2) input{width:175px}
+td input{width:100%;min-width:110px;border:0;padding:6px 8px;font:inherit;font-size:.9rem;background:var(--card);color:var(--tx);outline:none;display:block}
+td:nth-child(2) input{min-width:210px}
 td input.lock{background:var(--lock)}td input.goal{background:var(--goal)}
 td input:focus{outline:2px solid var(--ac);outline-offset:-2px}
 td input.err{color:var(--err)}
