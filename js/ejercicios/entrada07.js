@@ -2,7 +2,7 @@
 (()=>{
 const A=[['Nombre','Apellido'],['Ana','García']];
 const CC=/CONCAT\(|CONCATENAR\(/;
-(window.ENTRADAS=window.ENTRADAS||[])[7]={titulo:'Texto (opcional)',opcional:true,ejercicios:[
+(window.ENTRADAS=window.ENTRADAS||[])[6]={titulo:'Texto (opcional)',opcional:true,ejercicios:[
 {d:'En Excel el texto también se maneja con funciones. La función <b>CONCAT</b> une textos o celdas en uno solo: <code>=CONCAT(celda1; celda2)</code>. Une el nombre (A2) y el apellido (B2) en la celda amarilla.',
  rows:A,g:{C2:['AnaGarcía',CC]},h:'Escribe CONCAT con las dos celdas separadas por punto y coma. Excel las pega tal cual, sin espacio entre ellas. Debe salir AnaGarcía.',
  s:'Los dos argumentos son referencias a celdas: la del nombre y la del apellido, en ese orden. No hace falta escribir comillas.'},
