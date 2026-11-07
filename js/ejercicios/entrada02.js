@@ -32,7 +32,7 @@
 {d:'Usa la función PROMEDIO para calcular el promedio de escaños republicanos en el Congreso de los tres primeros estados de la lista.',
  rows:[['Estado','Votos electorales','Escaños demócratas','Escaños republicanos'],['California',55,47,6],['Texas',38,13,25],['New York',28,23,5],['Florida',29,13,16],['Illinois',20,15,5],['Pennsylvania',20,10,10]],
  g:{D8:[12,/PROMEDIO|AVERAGE/]},
- h:'Los tres primeros estados corresponden a las filas de la 2 a la 4. Usa la columna D con dos puntos <b>:</b>.',
+ h:'Los tres primeros estados corresponden a las filas de la 2 a la 4. Usa la columna D con dos puntos (:).',
  s:'Para los tres primeros estados, el rango de escaños republicanos es <code>D2:D4</code>. La fórmula es <code>=PROMEDIO(D2:D4)</code>.'},
 
 {d:'¿Qué resultado daría <code>=PROMEDIO(D2)</code>?',
