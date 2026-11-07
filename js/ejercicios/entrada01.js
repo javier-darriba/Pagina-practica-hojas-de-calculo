@@ -5,9 +5,9 @@
    h:    pista (se muestra tras el 1.er fallo)
    s:    solución explicada (se muestra tras el 2.º fallo; admite HTML, p. ej. <code>=SUMA(A1:A3)</code>) */
 (window.ENTRADAS=window.ENTRADAS||[])[0]={titulo:'SUMA',ejercicios:[
-{d:'Vamos a empezar con algo fácil. Todas las fórmulas en Excel empiezan con <code>=</code>. Calcula los ingresos totales de enero escribiendo <code>=B2+B3</code> y luego presiona «Comprobar».',
+{d:'Vamos a empezar desde el principio. Todas las fórmulas empiezan con <code>=</code>. Calcula los ingresos totales de enero escribiendo <code>=B2+B3</code> y luego presiona «Comprobar».',
  rows:[['','Enero'],['Ingresos producto',100],['Ingresos servicio',150],['Total','']],
- g:{B4:[150,/SUM/]},h:'Vuelve a leer el enunciado, la solución está escrita en él.',
+ g:{B4:[250,/SUM/]},h:'Vuelve a leer el enunciado, la solución está escrita en él.',
  s:'La fórmula <code>=B2+B3</code> te dará la suma de los valores de la celda B2 y la celda B3 porque el operador + suma los números.'},
 {d:'Una mejor forma de sumar números es usar la función <b>SUMA</b>. Calcula los ingresos totales de enero escribiendo <code>=SUMA(B2; B3)</code> Fíjate cómo los argumentos de la función están separados por punto y coma.',
  rows:[['','Enero'],['Ingresos producto',100],['Ingresos servicio',150],['Total','']],
