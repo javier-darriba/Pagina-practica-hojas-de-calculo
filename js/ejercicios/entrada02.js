@@ -37,13 +37,13 @@
 
 {d:'¿Qué resultado daría <code>=PROMEDIO(D2)</code>?',
  rows:[['Estado','Votos electorales','Escaños demócratas','Escaños republicanos'],['California',55,47,6],['Texas',38,13,25],['New York',28,23,5],['Florida',29,13,16],['Illinois',20,15,5],['Pennsylvania',20,10,10]],
- g:{D8:[6]},
+ g:{D8:[6,'valor']},
  h:'El promedio de una sola celda devuelve el valor que contiene dicha celda.',
  s:'La función PROMEDIO aplicada a una sola celda (como <code>=PROMEDIO(D2)</code>) devuelve directamente el valor contenido en ella, que en este caso es 6.'},
 
 {d:'¿Qué resultado daría <code>=PROMEDIO(1; 1; 1; 1; 1; 1; 1)</code>?',
  rows:[['Estado','Votos electorales','Escaños demócratas','Escaños republicanos'],['California',55,47,6],['Texas',38,13,25],['New York',28,23,5],['Florida',29,13,16],['Illinois',20,15,5],['Pennsylvania',20,10,10]],
- g:{B8:[1]},
+ g:{B8:[1,'valor']},
  h:'Si calculas la media de varios números idénticos, el resultado es ese mismo número.',
  s:'El promedio de un conjunto de números idénticos es siempre ese mismo número. La fórmula <code>=PROMEDIO(1; 1; 1; 1; 1; 1; 1)</code> da como resultado 1.'},
 
