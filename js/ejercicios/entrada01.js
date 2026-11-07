@@ -27,7 +27,7 @@
  s:'Recuerda que la función SUMA suma todo lo que está dentro de los paréntesis y separado por comas. Así que la fórmula <code>=SUMA(C2:C6; 100)</code> sumaría 100 a la suma del rango de celdas C2:C6.'},
 {d:'Usa la función SUMA con el argumento <code>B7:G7</code> para calcular los ingresos totales de enero a junio.',
  rows:[['','Enero','Febrero','Marzo','Abril','Mayo','Junio'],['Ingresos producto a',100,200,100,300,200,200],['Ingresos producto b',150,350,150,200,350,300],['Ingresos producto c',250,150,50,200,250,100],['Ingresos servicio',200,100,150,150,200,300],['Ingresos consultoría',50,200,150,100,250,350],['Total',750,100,600,950,1250,1250]],
- g:{F9:[5800,/SUM/]},h:'No del todo. La solución tiene que dar 5800. ¡Inténtalo de nuevo!.',
+ g:{F9:[3650,/SUM/]},h:'Escribe en la celda amarilla la función SUMA con el rango que te da el enunciado. Ese rango es horizontal: va de una celda a otra de la misma fila (la fila de totales). Debe dar 3650.',
  s:'Fíjate que hay una fila llamada «Total» en la fila 7, así que para calcular el total de todos los meses, la fórmula <code>=SUMA(B7:G7)</code> te da la suma de todas las celdas del rango horizontal B7:G7.'},
 {d:'Usa la función SUMA para calcular los ingresos totales del Producto A, el Producto C y Consultoría, todo esto <b>SOLO</b> para <b>ENERO</b>. Sugerencia: Los argumentos se ven así <code>(?; ?; ?)</code>',
  rows:[['','Enero','Febrero','Marzo','Abril','Mayo','Junio'],['Ingresos producto a',100,200,100,300,200,200],['Ingresos producto b',150,350,150,200,350,300],['Ingresos producto c',250,150,50,200,250,100],['Ingresos servicio',200,100,150,150,200,300],['Ingresos consultoría',50,200,150,100,250,350],['Total',750,100,600,950,1250,1250]],
