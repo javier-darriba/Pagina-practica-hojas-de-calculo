@@ -7,11 +7,11 @@
 (window.ENTRADAS=window.ENTRADAS||[])[0]={titulo:'SUMA',ejercicios:[
 {d:'Vamos a empezar desde el principio. Todas las fórmulas empiezan con <code>=</code>. Calcula los ingresos totales de enero escribiendo <code>=B2+B3</code> y luego presiona «Comprobar».',
  rows:[['','Enero'],['Ingresos producto',100],['Ingresos servicio',150],['Total','']],
- g:{B4:[250,/SUM/]},h:'Vuelve a leer el enunciado, la solución está escrita en él.',
+ g:{B4:[250]},h:'Vuelve a leer el enunciado, la solución está escrita en él.',
  s:'La fórmula <code>=B2+B3</code> te dará la suma de los valores de la celda B2 y la celda B3 porque el operador + suma los números.'},
 {d:'Una mejor forma de sumar números es usar la función <b>SUMA</b>. Calcula los ingresos totales de enero escribiendo <code>=SUMA(B2; B3)</code> Fíjate cómo los argumentos de la función están separados por punto y coma.',
  rows:[['','Enero'],['Ingresos producto',100],['Ingresos servicio',150],['Total','']],
- g:{B4:[150,/SUM/]},h:'Vuelve a leer el enunciado, la solución está escrita en él.',
+ g:{B4:[250,/SUM/]},h:'Vuelve a leer el enunciado, la solución está escrita en él.',
  s:'La fórmula <code>=SUMA(B2; B3)</code> devuelve la suma de todas las celdas que están entre paréntesis, que son las celdas B2 y B3.'},
 {d:'Puedes pasar un grupo de celdas a una función usando dos puntos. <code>B2:B6</code> le dice a Excel «todas las celdas desde B2 hasta B6». Calcula los ingresos de enero escribiendo <code>=SUMA(B2:B6)</code>',
  rows:[['','Enero'],['Ingresos producto a',100],['Ingresos producto b',150],['Ingresos producto c',250],['Ingresos servicio',200],['Ingresos consultoría',50],['Total','']],
