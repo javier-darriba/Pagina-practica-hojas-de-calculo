@@ -1,6 +1,6 @@
 /* engine.js — hoja de cálculo: lectura de fórmulas y funciones disponibles.
    Para añadir una función nueva, agrégala en el objeto F (y su alias en español en AL). */
-const $=id=>document.getElementById(id),COLS='ABCDEF'.split(''),ROWS=11,PEND={};
+const $=id=>document.getElementById(id),COLS='ABCDEFGHI'.split(''),ROWS=11,PEND={};
 let raw={},cache={};
 const nums=a=>a.flat(9).filter(v=>typeof v==='number');
 const sum=a=>a.reduce((x,y)=>x+y,0);
