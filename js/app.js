@@ -49,10 +49,10 @@ function go(e,x){E=e;X=x;const en=ENTRADAS[e],ex=en.ejercicios[x];raw={};locked=
  if(ex)build();showHelp();lst();nav()}
 function check(){cache={};const ex=cur(),errs=[];
  for(const[ref,[exp,re]]of Object.entries(ex.g)){const r=raw[ref]||'';
-  if(r[0]!=='='){errs.push(`${ref}: escribe una fórmula (empieza por =), no el resultado a mano.`);continue}
+  if(r[0]!=='='&&re!=='valor'){errs.push(`${ref}: escribe una fórmula (empieza por =), no el resultado a mano.`);continue}
   const v=val(ref),ok=typeof exp==='number'?typeof v==='number'&&Math.abs(v-exp)<.005:String(v).trim().toLowerCase()===String(exp).toLowerCase();
   if(!ok)errs.push(`${ref}: ahora da «${fmt(v)}», que no es el valor esperado.`);
-  else if(re&&!re.test(r.toUpperCase()))errs.push(`${ref}: el resultado es correcto, pero el ejercicio pide usar otra función o referencia.`)}
+  else if(re&&re!=='valor'&&!re.test(r.toUpperCase()))errs.push(`${ref}: el resultado es correcto, pero el ejercicio pide usar otra función o referencia.`)}
  const m=$('msg'),k=pid(E,X);
  if(errs.length){fails[k]=(fails[k]||0)+1;m.className='ko';m.innerHTML=errs.map(x=>'• '+x).join('<br>');showHelp();record(false)}
  else{m.className='ok';m.textContent=X<nEx(E)-1?'¡Correcto! Ya puedes pasar al siguiente ejercicio.':'¡Correcto! Has completado esta entrada.';$('nxt').hidden=false;record(true)}}
