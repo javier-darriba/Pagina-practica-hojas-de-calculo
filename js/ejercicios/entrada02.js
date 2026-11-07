@@ -5,7 +5,7 @@
    h:    pista (se muestra tras el 1.er fallo)
    s:    solución explicada (se muestra tras el 2.º fallo; admite HTML, p. ej. <code>=PROMEDIO(A1:A3)</code>) */
 (window.ENTRADAS=window.ENTRADAS||[])[1]={titulo:'PROMEDIO',ejercicios:[
-{d:'La función PROMEDIO devuelve la media aritmética de un grupo de celdas. Para obtener el promedio de votos electorales entre los 6 estados principales, escribe <code>=PROMEDIO(B2:B7)</code>',
+{d:'La función PROMEDIO devuelve la media aritmética de un grupo de celdas. Para obtener el promedio de votos electorales entre los 6 estados, escribe <code>=PROMEDIO(B2:B7)</code>',
  rows:[['Estado','Votos electorales','Escaños demócratas','Escaños republicanos'],['California',55,47,6],['Texas',38,13,25],['New York',28,23,5],['Florida',29,13,16],['Illinois',20,15,5],['Pennsylvania',20,10,10]],
  g:{B8:[31.666667,/PROMEDIO|AVERAGE/]},
  h:'Escribe =PROMEDIO( seguido del rango completo de celdas con los votos, desde B2 hasta B7.',
@@ -26,13 +26,13 @@
 {d:'Usa la función PROMEDIO para calcular el promedio de votos electorales de los 4 estados con más votos.',
  rows:[['Estado','Votos electorales','Escaños demócratas','Escaños republicanos'],['California',55,47,6],['Texas',38,13,25],['New York',28,23,5],['Florida',29,13,16],['Illinois',20,15,5],['Pennsylvania',20,10,10]],
  g:{B8:[37.5,/PROMEDIO|AVERAGE/]},
- h:'Identifica las filas de los 4 primeros estados en la columna B (desde B2 hasta B5).',
+ h:'Utiliza las 4 primeras filas ya que son los estados con mayor número de votos electorales. Además debes hacer uso de la columna B (desde B2 hasta B5).',
  s:'Los 4 estados con más votos ocupan las filas 2 a 5. Por tanto, la fórmula que calcula su promedio usando el rango es <code>=PROMEDIO(B2:B5)</code>.'},
 
 {d:'Usa la función PROMEDIO para calcular el promedio de escaños republicanos en el Congreso de los tres primeros estados de la lista.',
  rows:[['Estado','Votos electorales','Escaños demócratas','Escaños republicanos'],['California',55,47,6],['Texas',38,13,25],['New York',28,23,5],['Florida',29,13,16],['Illinois',20,15,5],['Pennsylvania',20,10,10]],
  g:{D8:[12,/PROMEDIO|AVERAGE/]},
- h:'Los tres primeros estados corresponden a las filas de la 2 a la 4. Usa la columna D con dos puntos (:).',
+ h:'Los tres primeros estados corresponden a las filas de la 2 a la 4. Usa la columna D con dos puntos <b>:</b>.',
  s:'Para los tres primeros estados, el rango de escaños republicanos es <code>D2:D4</code>. La fórmula es <code>=PROMEDIO(D2:D4)</code>.'},
 
 {d:'¿Qué resultado daría <code>=PROMEDIO(D2)</code>?',
