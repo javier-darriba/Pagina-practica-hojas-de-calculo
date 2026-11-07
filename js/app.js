@@ -66,8 +66,12 @@ $('chk').onclick=check;
 $('nxt').onclick=()=>{X<nEx(E)-1?go(E,X+1):E<ENTRADAS.length-1?openEntrada(E+1):0};
 $('rst').onclick=()=>go(E,X);
 /* ===== Cuentas y registro ===== */
-async function record(ok){const k=pid(E,X),p=prog[k]||{exercise:k,attempts:0,done:false};p.attempts++;if(ok)p.done=true;prog[k]=p;lst();nav();
- const{error}=await sb.from('progress').upsert({user_id:me.id,exercise:k,attempts:p.attempts,done:p.done,updated_at:new Date().toISOString()});
+async function record(ok){const k=pid(E,X),p=prog[k]||{exercise:k,attempts:0,done:false,helps:0};p.attempts++;if(ok)p.done=true;
+ p.helps=Math.min(fails[k]||0,2);                  // ayudas recibidas (pista + solución), se sobrescribe en cada intento
+ prog[k]=p;lst();nav();
+ const row={user_id:me.id,exercise:k,attempts:p.attempts,done:p.done,helps:p.helps,updated_at:new Date().toISOString()};
+ let{error}=await sb.from('progress').upsert(row);
+ if(error&&/helps/.test(error.message)){delete row.helps;({error}=await sb.from('progress').upsert(row))}   // por si aún no existe la columna
  if(error)$('msg').textContent='No se pudo guardar tu progreso: '+error.message}
 async function enter(u){me=u;
  const{data:p}=await sb.from('profiles').select('*').eq('id',u.id).single();prof=p||{};
@@ -94,9 +98,9 @@ $('bpan').onclick=async()=>{if(!$('panel').hidden){show('app');return}
  const[a,b]=await Promise.all([sb.from('profiles').select('*').eq('role','student').order('full_name'),sb.from('progress').select('*')]);
  const by={};(b.data||[]).forEach(r=>{(by[r.user_id]=by[r.user_id]||{})[r.exercise]=r});
  const tot=ENTRADAS.reduce((s,_,e)=>s+nEx(e),0);
- let h='<h2>Progreso de la clase</h2><div class="wrap"><table class="pan"><tr><th>Alumno</th>'+ENTRADAS.map((en,e)=>`<th title="${esc(en.titulo)}">E${e+1}</th>`).join('')+'<th>Total</th><th>Intentos</th></tr>';
- (a.data||[]).forEach(p=>{const m=by[p.id]||{};let n=0,at=0;
-  const cells=ENTRADAS.map((en,e)=>{let c=0;en.ejercicios.forEach((_,x)=>{const r=m[pid(e,x)];if(r){at+=r.attempts;if(r.done)c++}});n+=c;return `<td>${nEx(e)?c+'/'+nEx(e):'–'}</td>`}).join('');
-  h+=`<tr><td>${esc(p.full_name||'')} <small>(${esc(userOf(p.email))})</small></td>${cells}<td>${n}/${tot}</td><td>${at}</td></tr>`});
- $('panel').innerHTML=h+'</table></div><p class="note">E1…E10 = entradas (ejercicios completados / total). Pasa el ratón por la cabecera para ver el título.</p>'};
+ let h='<h2>Progreso de la clase</h2><div class="wrap"><table class="pan"><tr><th>Alumno</th>'+ENTRADAS.map((en,e)=>`<th title="${esc(en.titulo)}">E${e+1}</th>`).join('')+'<th>Total</th><th>Ayudas</th><th>Intentos</th></tr>';
+ (a.data||[]).forEach(p=>{const m=by[p.id]||{};let n=0,at=0,ay=0;
+  const cells=ENTRADAS.map((en,e)=>{let c=0,hp=0;en.ejercicios.forEach((_,x)=>{const r=m[pid(e,x)];if(r){at+=r.attempts;hp+=r.helps||0;if(r.done)c++}});n+=c;ay+=hp;return `<td>${nEx(e)?c+'/'+nEx(e)+'<br><small>'+hp+'/'+2*nEx(e)+' ayudas</small>':'–'}</td>`}).join('');
+  h+=`<tr><td>${esc(p.full_name||'')} <small>(${esc(userOf(p.email))})</small></td>${cells}<td>${n}/${tot}</td><td>${ay}</td><td>${at}</td></tr>`});
+ $('panel').innerHTML=h+'</table></div><p class="note">E1…E10 = bloques: ejercicios completados y, debajo, ayudas recibidas (pistas + soluciones; máximo 2 por ejercicio). Pasa el ratón por la cabecera para ver el título.</p>'};
 init();
