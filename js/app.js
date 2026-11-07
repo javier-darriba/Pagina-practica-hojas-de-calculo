@@ -16,9 +16,15 @@ function refresh(){cache={};document.querySelectorAll('#grid input').forEach(i=>
  i.classList.toggle('err',typeof v==='string'&&/^#/.test(v)&&raw[ref]!==v);
  i.style.textAlign=typeof v==='number'?'right':'left';
  if(i!==document.activeElement)i.value=raw[ref]===undefined?'':fmt(v)})}
-function build(){let h='<table><tr><th></th>'+COLS.map(c=>`<th>${c}</th>`).join('')+'</tr>';
- for(let r=1;r<=ROWS;r++){h+=`<tr><th>${r}</th>`;for(const c of COLS){const ref=c+r,l=locked.has(ref);h+=`<td><input data-r="${ref}" class="${ref in G?'goal':l?'lock':''}" ${l?'readonly':''} autocomplete="off" spellcheck="false"></td>`}h+='</tr>'}
-$('grid').innerHTML=h+'</table>';
+function build(){
+ /* la tabla se adapta al ejercicio: columnas y filas necesarias + un margen */
+ let nc=3,nr=5;cur().rows.forEach((r,y)=>{nc=Math.max(nc,r.length);nr=Math.max(nr,y+2)});
+ for(const k in G){nc=Math.max(nc,k.charCodeAt(0)-64);nr=Math.max(nr,+k.slice(1)+1)}
+ const CS=COLS.slice(0,nc);
+let h='<table><tr><th></th>'+CS.map(c=>`<th>${c}</th>`).join('')+'</tr>';
+ for(let r=1;r<=nr;r++){h+=`<tr><th>${r}</th>`;for(const c of CS){const ref=c+r,l=locked.has(ref);h+=`<td><input data-r="${ref}" class="${ref in G?'goal':l?'lock':''}" ${l?'readonly':''} autocomplete="off" spellcheck="false"></td>`}h+='</tr>'}
+ $('grid').innerHTML=h+'</table>';
+ /* ancho de cada columna según su texto más largo, para que no se corte nada */
  COLS.forEach(c=>{let m=6;for(const ref in raw)if(ref[0]===c)m=Math.max(m,String(raw[ref]).length);
   document.querySelectorAll('#grid input[data-r^="'+c+'"]').forEach(i=>i.style.minWidth=(m+4)+'ch')});
  refresh()}
