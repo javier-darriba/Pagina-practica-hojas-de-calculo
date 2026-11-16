@@ -13,7 +13,7 @@
  rows:[['','Enero'],['Ingresos producto',100],['Ingresos servicio',150],['Total','']],
  g:{B4:[250,/SUM/]},h:'Vuelve a leer el enunciado, la solución está escrita en él.',
  s:'La fórmula <code>=SUMA(B2; B3)</code> devuelve la suma de todas las celdas que están entre paréntesis, que son las celdas B2 y B3.'},
-{d:'Puedes pasar un grupo de celdas a una función usando dos puntos. <code>B2:B6</code> le dice a Excel «todas las celdas desde B2 hasta B6». Calcula los ingresos de enero escribiendo <code>=SUMA(B2:B6)</code>',
+{d:'Puedes pasar un grupo de celdas a una función usando dos puntos. <code>B2:B6</code> le dice a la hoja de cálculo «todas las celdas desde B2 hasta B6». Calcula los ingresos de enero escribiendo <code>=SUMA(B2:B6)</code>',
  rows:[['','Enero'],['Ingresos producto a',100],['Ingresos producto b',150],['Ingresos producto c',250],['Ingresos servicio',200],['Ingresos consultoría',50],['Total','']],
  g:{B7:[750,/SUM/]},h:'Dentro del paréntesis solo va un argumento: el rango. Los dos puntos <code>:</code> significan «desde esta celda hasta esta otra». Mira cuál es la primera celda con ingresos y cuál la última. Debe dar 750.',
  s:'La fórmula <code>=SUMA(B2:B6)</code> devuelve la suma de los valores que hay en cada celda de un rango de celdas. El rango <b>B2:B6</b> significa «todas las celdas desde B2 hasta B6».'},
