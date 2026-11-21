@@ -93,14 +93,20 @@ $('ago').onclick=async()=>{const m=$('amsg');m.textContent='';if(!sb){m.textCont
  if(!r.data.session){m.textContent='Cuenta creada, pero Supabase pide confirmar el correo: desactiva «Confirm email» en Authentication.';return}
  enter(r.data.user)};
 $('bout').onclick=async()=>{await sb.auth.signOut();me=null;show('auth')};
-$('bpan').onclick=async()=>{if(!$('panel').hidden){show('app');return}
- show('panel');$('panel').textContent='Cargando…';
- const[a,b]=await Promise.all([sb.from('profiles').select('*').eq('role','student').order('full_name'),sb.from('progress').select('*')]);
- const by={};(b.data||[]).forEach(r=>{(by[r.user_id]=by[r.user_id]||{})[r.exercise]=r});
- const tot=ENTRADAS.reduce((s,_,e)=>s+nEx(e),0);
- let h='<h2>Progreso de la clase</h2><div class="wrap"><table class="pan"><tr><th>Alumno</th>'+ENTRADAS.map((en,e)=>`<th title="${esc(en.titulo)}">E${e+1}</th>`).join('')+'<th>Total</th><th>Ayudas</th><th>Intentos</th></tr>';
+/* Panel del profesor: se carga al pulsar el botón y con «Actualizar». Supabase devuelve como máximo 1000 filas por consulta, por eso se pide por páginas. */
+async function allProgress(){let all=[],from=0;
+ for(;;){const{data,error}=await sb.from('progress').select('*').order('user_id').order('exercise').range(from,from+999);
+  if(error||!data)break;all=all.concat(data);if(data.length<1000)break;from+=1000}
+ return all}
+async function loadPanel(){show('panel');$('panel').textContent='Cargando…';
+ const[a,rs]=await Promise.all([sb.from('profiles').select('*').eq('role','student').order('full_name'),allProgress()]);
+ const by={};rs.forEach(r=>{(by[r.user_id]=by[r.user_id]||{})[r.exercise]=r});
+ const tot=ENTRADAS.reduce((s,_,e)=>s+nEx(e),0),hora=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+ let h=`<h2>Progreso de la clase</h2><div class="bar" style="margin:0 0 10px;align-items:center"><button id="pref">Actualizar</button><button id="pback">Volver a los ejercicios</button><span class="note" style="margin:0">Datos de las ${hora}</span></div><div class="wrap"><table class="pan"><tr><th>Alumno</th>`+ENTRADAS.map((en,e)=>`<th title="${esc(en.titulo)}">E${e+1}</th>`).join('')+'<th>Total</th><th>Ayudas</th><th>Intentos</th></tr>';
  (a.data||[]).forEach(p=>{const m=by[p.id]||{};let n=0,at=0,ay=0;
   const cells=ENTRADAS.map((en,e)=>{let c=0,hp=0;en.ejercicios.forEach((_,x)=>{const r=m[pid(e,x)];if(r){at+=r.attempts;hp+=r.helps||0;if(r.done)c++}});n+=c;ay+=hp;return `<td>${nEx(e)?c+'/'+nEx(e)+'<br><small>'+hp+'/'+2*nEx(e)+' ayudas</small>':'–'}</td>`}).join('');
   h+=`<tr><td>${esc(p.full_name||'')} <small>(${esc(userOf(p.email))})</small></td>${cells}<td>${n}/${tot}</td><td>${ay}</td><td>${at}</td></tr>`});
- $('panel').innerHTML=h+'</table></div><p class="note">E1…E10 = bloques: ejercicios completados y, debajo, ayudas recibidas (pistas + soluciones; máximo 2 por ejercicio). Pasa el ratón por la cabecera para ver el título.</p>'};
+ $('panel').innerHTML=h+'</table></div><p class="note">E1…E10 = bloques: ejercicios completados y, debajo, ayudas recibidas (pistas + soluciones; máximo 2 por ejercicio).</p>';
+ $('pref').onclick=loadPanel;$('pback').onclick=()=>show('app')}
+$('bpan').onclick=loadPanel;
 init();
